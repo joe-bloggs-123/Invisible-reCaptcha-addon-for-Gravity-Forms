@@ -32,6 +32,9 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	 */
 	public function init() {
 		parent::init();
+		add_action( 'wp_enqueue_scripts', array( $this, 'localize_frontend_scripts' ), 99 );
+		add_action( 'wp_ajax_example_ajax_request', array( $this, 'wp_ajax_example_ajax_request'), 99 );
+		add_action( 'wp_ajax_nopriv_example_ajax_request', array( $this, 'wp_ajax_example_ajax_request' ), 99 );
 		add_filter( 'gform_form_tag', array( $this, 'gf_google_captcha' ), 10, 2 );
 	}
 
@@ -42,8 +45,25 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	 * @return string           The form string with the new code pre-pended
 	 */
 	function gf_google_captcha( $form_tag, $form  ){
+		// Add Google Captcha div for holding async code
 		$form_tag = $form_tag . '<div class="gf-recaptcha-div"></div>';
 		return $form_tag;
+	}
+
+	public function localize_frontend_scripts() {
+		wp_localize_script(
+			'gfGoogleCaptchaScriptFrontend',
+			'gfGoogleCaptchaScriptFrontend_obj',
+			array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) )
+		);
+	}
+
+	public function example_ajax_request() {
+		$name	= isset($_POST['name'])?trim($_POST['name']):"";
+		$response	= array();
+		$response['message']	= "Successfull Request";
+		echo json_encode($response);
+		exit;
 	}
 
 	// # SCRIPTS & STYLES -----------------------------------------------------------------------------------------------
@@ -60,22 +80,22 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 
 		$scripts = array(
 			array(
-				'handle'  => 'googleRecaptcha',
-				'src'     => 'https://www.google.com/recaptcha/api.js?onload=initCaptchaMiddleMan&render=explicit',
+				'handle'  => 'gfGoogleCaptchaScriptFrontend',
+				'src'     => $this->get_base_url() . '/js/frontend.js',
 				'version' => $this->_version,
-				'deps'    => array( 'jquery' ),
+				'deps'    => array('googleRecaptcha'),
+				'strings' => array(
+					'key'  => $key,
+				),
 				'enqueue' => array(
 	                array( $this, 'requires_script' )
 	            )
 			),
 			array(
-				'handle'  => 'gfGoogleCaptchaScript',
-				'src'     => $this->get_base_url() . '/js/captcha-script.js',
+				'handle'  => 'googleRecaptcha',
+				'src'     => 'https://www.google.com/recaptcha/api.js?render=6LdeS6UUAAAAAPIm-3Ur5m2p8QYRQ0229JuGm_ll',
 				'version' => $this->_version,
-				'deps'    => array( 'googleRecaptcha','jquery' ),
-				'strings' => array(
-					'key'  => $key,
-				),
+				'deps'    => array( ),
 				'enqueue' => array(
 	                array( $this, 'requires_script' )
 	            )
@@ -84,6 +104,7 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 
 		return array_merge( parent::scripts(), $scripts );
 	}
+
 
 
 	// # ADMIN FUNCTIONS -----------------------------------------------------------------------------------------------
@@ -125,28 +146,14 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	 * @param array $entry The entry currently being processed.
 	 * @param array $form The form currently being processed.
 	 */
-	public function after_submission( $entry, $form ) {
-
-		// Evaluate the rules configured for the custom_logic setting.
-		$result = $this->is_custom_logic_met( $form, $entry );
-
-		if ( $result ) {
-			// Do something awesome because the rules were met.
-		}
-	}
+	// public function after_submission( $entry, $form ) {
+	//
+	//
+	// 		// Do something awesome because the rules were met.
+	// 		return true;
+	//
+	// }
 
 
-	// # HELPERS -------------------------------------------------------------------------------------------------------
-
-	/**
-	 * The feedback callback for the 'mytextbox' setting on the plugin settings page and the 'mytext' setting on the form settings page.
-	 *
-	 * @param string $value The setting value.
-	 *
-	 * @return bool
-	 */
-	public function is_valid_setting( $value ) {
-		return strlen( $value ) < 10;
-	}
 
 }
