@@ -8,7 +8,12 @@ A simple Gravity Forms plugin to enable invisible Google Captcha V3 on all forms
 2. Navigate to your WordPress plugins page
 3. Press "Add New"
 4. Press "Upload Plugin"
-5. Find the download zip folder, and upload
+5. Select the .zip file that was just downloaded
+6. Press "Install Now"
+7. Press "Activate Plugin"
+8. Navigate to Gravity Forms Settings
+9. In the left hand bar, press "Google Captcha V3"
+10. Add the Google Captcha API keys
 
 ## Creating Google Captcha Keys
 
