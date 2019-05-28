@@ -1,9 +1,8 @@
 {
-	"name": "gravity-forms-google-captcha",
-	"private": true,
-	"description": "",
-	"version": "1.0.9",
-	"author": "Robert Marshall",
-	"keywords": [],
-	"license": "MIT"
+    "name": "gravity-forms-google-captcha",
+    "description": "A simple Gravity Forms plugin to enable invisible Google Captcha V3 on all forms.",
+    "version": "1.0.9",
+    "author": "Fox Agency",
+    "keywords": [],
+    "license": "MIT"
 }

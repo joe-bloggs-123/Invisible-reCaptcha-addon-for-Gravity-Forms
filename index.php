@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Gravity Forms Google Captcha V3
-Plugin URI:
-Description:
-Version: 0.1
-Author:
-Author URI:
+Plugin URI: https://github.com/fox-agency/gravityforms-google-captcha-v3-addon
+Description: A simple Gravity Forms plugin to enable invisible Google Captcha V3 on all forms.
+Version: 1.0.9
+Author: Fox Agency
+Author URI: fox.agency
 */
 
 define( 'GF_GOOGLE_CAPTCHA_ADDON_VERSION', '2.1' );
