@@ -8,7 +8,7 @@ Author: Fox Agency
 Author URI: fox.agency
 */
 
-define( 'GF_GOOGLE_CAPTCHA_ADDON_VERSION', '2.1' );
+define( 'GF_GOOGLE_CAPTCHA_ADDON_VERSION', '1.0.9' );
 
 add_action( 'gform_loaded', array( 'GF_Google_Captcha_AddOn_Bootstrap', 'load' ), 5 );
 

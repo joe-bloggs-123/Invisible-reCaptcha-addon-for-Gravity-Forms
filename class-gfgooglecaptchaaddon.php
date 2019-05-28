@@ -5,7 +5,7 @@ GFForms::include_addon_framework();
 class GFGoogleCaptchaAddOn extends GFAddOn {
 
 	protected $_version = GF_GOOGLE_CAPTCHA_ADDON_VERSION;
-	protected $_min_gravityforms_version = '1.0.9';
+	protected $_min_gravityforms_version = '1.9';
 	protected $_slug = 'gravityformsgooglecaptcha';
 	protected $_path = 'gravityformsgooglecaptcha/index.php';
 	protected $_full_path = __FILE__;
