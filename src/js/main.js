@@ -41,8 +41,10 @@ const tellServer = token => {
 
 	axios
 		.post(gfGoogleCaptchaScriptFrontend_obj.ajaxurl, {
-			action: 'example_ajax_request',
-			name: 'My First AJAX Request',
+			data: {
+				action: 'example_ajax_request',
+				name: 'My First AJAX Request',
+			},
 		})
 		.then(function(response) {
 			// handle success

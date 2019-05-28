@@ -33,8 +33,8 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	public function init() {
 		parent::init();
 		add_action( 'wp_enqueue_scripts', array( $this, 'localize_frontend_scripts' ), 99 );
-		add_action( 'wp_ajax_example_ajax_request', array( $this, 'wp_ajax_example_ajax_request'), 99 );
-		add_action( 'wp_ajax_nopriv_example_ajax_request', array( $this, 'wp_ajax_example_ajax_request' ), 99 );
+		add_action( 'wp_ajax_check_google_token_request', array( $this, 'check_google_token_request'), 99 );
+		add_action( 'wp_ajax_nopriv_check_google_token_request', array( $this, 'check_google_token_request' ), 99 );
 		add_filter( 'gform_form_tag', array( $this, 'gf_google_captcha' ), 10, 2 );
 	}
 
@@ -50,20 +50,46 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 		return $form_tag;
 	}
 
-	public function localize_frontend_scripts() {
-		wp_localize_script(
-			'gfGoogleCaptchaScriptFrontend',
-			'gfGoogleCaptchaScriptFrontend_obj',
-			array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) )
-		);
-	}
+	public function check_google_token_request() {
 
-	public function example_ajax_request() {
-		$name	= isset($_POST['name'])?trim($_POST['name']):"";
-		$response	= array();
-		$response['message']	= "Successfull Request";
-		echo json_encode($response);
-		exit;
+		// Check nonce and referrer
+		check_ajax_referer( 'google-captcha', 'security' );
+
+		$token = isset( $_POST['token'] ) ? filter_var( trim( $_POST['token'] ), FILTER_SANITIZE_STRING) : false;
+
+		if(!$token){ die; }
+
+		$secret_key = $this->get_plugin_setting( 'google_site_secret_key');
+
+		$url = 'https://www.google.com/recaptcha/api/siteverify';
+	    $data = array(
+			'secret' 	=> $secret_key,
+			'response' 	=> $token
+		);
+
+		$options = array(
+	      'http' => array(
+	        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+	        'method'  => 'POST',
+	        'content' => http_build_query($data)
+	      )
+	    );
+
+	    $context  = stream_context_create($options);
+	    $response = file_get_contents($url, false, $context);
+	    $responseKeys = json_decode($response,true);
+
+	    header('Content-type: application/json');
+
+	    if( $responseKeys["success"] ) {
+			$score = $responseKeys['score'];
+			echo json_encode(array('success' => 'true'));
+	    } else {
+			$score = $responseKeys['score'];
+			echo json_encode(array('success' => 'false'));
+	    }
+
+		die;
 	}
 
 	// # SCRIPTS & STYLES -----------------------------------------------------------------------------------------------
@@ -75,18 +101,37 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	 */
 	public function scripts() {
 
-		$all_plugin_settings = $this->get_plugin_settings();
-		$key                 = $this->get_plugin_setting( 'google_site_key');
+		$key = $this->get_plugin_setting( 'google_site_key');
 
 		$scripts = array(
 			array(
 				'handle'  => 'gfGoogleCaptchaScriptFrontend',
 				'src'     => $this->get_base_url() . '/js/frontend.js',
 				'version' => $this->_version,
-				'deps'    => array('googleRecaptcha'),
+				'deps'    => array('googleRecaptcha', 'axios', 'qs-script'),
 				'strings' => array(
-					'key'  => $key,
+					'key'  		=> $key,
+					'ajaxurl' 	=> admin_url( 'admin-ajax.php' ),
+					'security' 	=> wp_create_nonce('google-captcha'),
 				),
+				'enqueue' => array(
+	                array( $this, 'requires_script' )
+	            )
+			),
+			array(
+				'handle'  => 'axios',
+				'src'     => 'https://unpkg.com/axios/dist/axios.min.js',
+				'version' => $this->_version,
+				'deps'    => array(),
+				'enqueue' => array(
+	                array( $this, 'requires_script' )
+	            )
+			),
+			array(
+				'handle'  => 'qs-script',
+				'src'     => 'https://unpkg.com/qs/dist/qs.js',
+				'version' => $this->_version,
+				'deps'    => array(),
 				'enqueue' => array(
 	                array( $this, 'requires_script' )
 	            )
@@ -104,8 +149,6 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 
 		return array_merge( parent::scripts(), $scripts );
 	}
-
-
 
 	// # ADMIN FUNCTIONS -----------------------------------------------------------------------------------------------
 
@@ -139,21 +182,5 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 			)
 		);
 	}
-
-	/**
-	 * Performing a custom action at the end of the form submission process.
-	 *
-	 * @param array $entry The entry currently being processed.
-	 * @param array $form The form currently being processed.
-	 */
-	// public function after_submission( $entry, $form ) {
-	//
-	//
-	// 		// Do something awesome because the rules were met.
-	// 		return true;
-	//
-	// }
-
-
 
 }
