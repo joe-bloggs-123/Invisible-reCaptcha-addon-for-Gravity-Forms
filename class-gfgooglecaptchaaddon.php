@@ -149,6 +149,14 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 		return array_merge( parent::scripts(), $scripts );
 	}
 
+	// Set where the scripts are enqueued
+	function requires_script(){
+		if(!is_admin()){
+			return true;
+		}
+		return false;
+	}
+
 	// # ADMIN FUNCTIONS -----------------------------------------------------------------------------------------------
 
 	/**
