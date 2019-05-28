@@ -24,4 +24,4 @@ A simple Gravity Forms plugin to enable invisible Google Captcha V3 on all forms
 
 # Google reCaptcha Label
 
-The Google reCaptcha v3 label is shown be default. It can be only removed if the terms and conditions are shown underneath every form.
+The Google reCaptcha v3 label is shown be default. It can only be removed if the terms and conditions are shown underneath every form.
