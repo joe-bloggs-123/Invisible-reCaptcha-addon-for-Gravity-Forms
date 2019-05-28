@@ -138,7 +138,7 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 			),
 			array(
 				'handle'  => 'googleRecaptcha',
-				'src'     => 'https://www.google.com/recaptcha/api.js?render=6LdeS6UUAAAAAPIm-3Ur5m2p8QYRQ0229JuGm_ll',
+				'src'     => 'https://www.google.com/recaptcha/api.js?render=' . $key,
 				'version' => $this->_version,
 				'deps'    => array( ),
 				'enqueue' => array(
