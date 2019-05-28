@@ -32,7 +32,6 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	 */
 	public function init() {
 		parent::init();
-		add_action( 'wp_enqueue_scripts', array( $this, 'localize_frontend_scripts' ), 99 );
 		add_action( 'wp_ajax_check_google_token_request', array( $this, 'check_google_token_request'), 99 );
 		add_action( 'wp_ajax_nopriv_check_google_token_request', array( $this, 'check_google_token_request' ), 99 );
 		add_filter( 'gform_form_tag', array( $this, 'gf_google_captcha' ), 10, 2 );
@@ -181,6 +180,27 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 				)
 			)
 		);
+	}
+
+	public function process_feed( $feed, $entry, $form ) {
+	    $contact_id = $this->create_contact( $feed, $entry, $form );
+	    gform_update_meta( $entry['id'], 'simpleaddon_contact_id', $contact_id );
+	    $entry['simpleaddon_contact_id'] = $contact_id;
+	 	write_log('process');
+	    return $entry;
+	}
+
+	public function get_entry_meta( $entry_meta, $form_id ) {
+	    $entry_meta['simpleaddon_contact_id']   = array(
+	        'label'                      => 'Simple Add-On Contact ID',
+	        'is_numeric'                 => true,
+	        'is_default_column'          => true,
+	        'update_entry_meta_callback' => array( $this, 'update_entry_meta' ),
+	        'filter'         => array(
+	            'operators' => array( 'is', 'isnot', '>', '<' )
+	                    )
+	                );
+	    return $entry_meta;
 	}
 
 }
