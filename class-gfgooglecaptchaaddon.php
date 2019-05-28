@@ -157,6 +157,27 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 		return false;
 	}
 
+	/**
+	 * Return the styles which should be enqueued.
+	 *
+	 * @return array
+	 */
+
+	public function styles() {
+	    $styles = array(
+	        array(
+	            'handle'  => 'gfGoogleCaptchaStylesFrontend',
+	            'src'     => $this->get_base_url() . '/css/frontend.css',
+	            'version' => $this->_version,
+	            'enqueue' => array(
+	                array( $this, 'requires_script' )
+	            )
+	        )
+	    );
+
+	    return array_merge( parent::styles(), $styles );
+	}
+
 	// # ADMIN FUNCTIONS -----------------------------------------------------------------------------------------------
 
 	/**
