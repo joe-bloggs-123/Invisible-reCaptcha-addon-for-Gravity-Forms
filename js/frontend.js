@@ -1,4 +1,4 @@
-var key = gfGoogleCaptchaScript_strings.key
+var key = gfGoogleCaptchaScriptFrontend_strings.key
 
 grecaptcha.ready(function() {
     for (var i = 0; i < document.forms.length; ++i) {
@@ -41,14 +41,17 @@ grecaptcha.ready(function() {
         })
 
         function tellServer(token, frm) {
-            var data: {
+            var data = {
                 action: 'check_google_token_request',
                 token: token,
-                security: gfGoogleCaptchaScript_strings.security,
+                security: gfGoogleCaptchaScriptFrontend_strings.security,
             }
 
             axios
-                .post(gfGoogleCaptchaScript_strings.ajaxurl, Qs.stringify(data))
+                .post(
+                    gfGoogleCaptchaScriptFrontend_strings.ajaxurl,
+                    Qs.stringify(data)
+                )
                 .then(function(response) {
                     if (response.data.success) {
                         frm.submit()
