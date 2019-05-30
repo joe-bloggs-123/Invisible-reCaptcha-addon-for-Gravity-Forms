@@ -32,6 +32,7 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	 */
 	public function init() {
 		parent::init();
+		add_filter( 'body_class','set_body_class_name' );
 		add_action( 'wp_ajax_check_google_token_request', array( $this, 'check_google_token_request'), 99 );
 		add_action( 'wp_ajax_nopriv_check_google_token_request', array( $this, 'check_google_token_request' ), 99 );
 		add_filter( 'gform_form_tag', array( $this, 'gf_google_captcha' ), 10, 2 );
@@ -89,6 +90,16 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	    }
 
 		die;
+	}
+
+	// If user has checked "Hide label" checkbox, add
+	// .hide-recaptcha to the body classlist
+	function set_body_class_name($classes){
+		$hide_label = $this->get_plugin_setting( 'google_recaptcha_label');
+		if($hide_label){
+			$classes[] = 'hide-recaptcha';  
+		}
+		return $classes;
 	}
 
 	// # SCRIPTS & STYLES -----------------------------------------------------------------------------------------------
@@ -205,6 +216,20 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 						'tooltip'           => esc_html__( 'Keep secret! This is the key for the server site.', 'gfgooglecaptchaaddon' ),
 						'class'             => 'medium',
 						'feedback_callback' => array( $this, 'is_valid_setting' ),
+					),
+					array(
+						'label'             => esc_html__( 'Hide Google Label', 'gfgooglecaptchaaddon' ),
+						'type'              => 'checkbox',
+						'name'              => 'google_recaptcha_label',
+						'tooltip'           => esc_html__( 'Hide the Google reCaptcha label from your site', 'gfgooglecaptchaaddon' ),
+						'choices' => array(
+			                array(
+			                    'label'         => esc_html__( 'Hide label', 'gfgooglecaptchaaddon' ),
+			                    'name'          => 'hide',
+			                    'default_value' => 1,
+
+			                ),
+						),
 					),
 				)
 			)
