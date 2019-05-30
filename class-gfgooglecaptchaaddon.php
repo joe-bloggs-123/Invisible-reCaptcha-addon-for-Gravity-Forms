@@ -97,7 +97,7 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	function set_body_class_name($classes){
 		$hide_label = $this->get_plugin_setting( 'google_recaptcha_label');
 		if($hide_label){
-			$classes[] = 'hide-recaptcha';  
+			$classes[] = 'hide-recaptcha';
 		}
 		return $classes;
 	}
@@ -220,7 +220,8 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 					array(
 						'label'             => esc_html__( 'Hide Google Label', 'gfgooglecaptchaaddon' ),
 						'type'              => 'checkbox',
-						'name'              => 'google_recaptcha_label',
+						'name'              => 'google_recaptcha_label','description' => esc_html__( 'This is a description of the purpose of Section 1', 'sometextdomain' ),
+						'description' 		=> esc_html__( 'This is a test', 'gfgooglecaptchaaddon' ),
 						'tooltip'           => esc_html__( 'Hide the Google reCaptcha label from your site', 'gfgooglecaptchaaddon' ),
 						'choices' => array(
 			                array(
