@@ -32,7 +32,7 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	 */
 	public function init() {
 		parent::init();
-		add_filter( 'body_class','set_body_class_name' );
+		add_filter( 'body_class', array( $this, 'set_body_class_name') );
 		add_action( 'wp_ajax_check_google_token_request', array( $this, 'check_google_token_request'), 99 );
 		add_action( 'wp_ajax_nopriv_check_google_token_request', array( $this, 'check_google_token_request' ), 99 );
 		add_filter( 'gform_form_tag', array( $this, 'gf_google_captcha' ), 10, 2 );
@@ -95,7 +95,7 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	// If user has checked "Hide label" checkbox, add
 	// .hide-recaptcha to the body classlist
 	function set_body_class_name($classes){
-		$hide_label = $this->get_plugin_setting( 'google_recaptcha_label');
+		$hide_label = $this->get_plugin_setting('google_recaptcha_badge_visibility');
 		if($hide_label){
 			$classes[] = 'hide-recaptcha';
 		}
@@ -196,6 +196,9 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	 *
 	 * @return array
 	 */
+
+
+
 	public function plugin_settings_fields() {
 		return array(
 			array(
@@ -218,17 +221,16 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 						'feedback_callback' => array( $this, 'is_valid_setting' ),
 					),
 					array(
-						'label'             => esc_html__( 'Hide Google Label', 'gfgooglecaptchaaddon' ),
+						'label'             => esc_html__( 'reCaptcha Badge', 'gfgooglecaptchaaddon' ),
 						'type'              => 'checkbox',
-						'name'              => 'google_recaptcha_label','description' => esc_html__( 'This is a description of the purpose of Section 1', 'sometextdomain' ),
-						'description' 		=> esc_html__( 'This is a test', 'gfgooglecaptchaaddon' ),
-						'tooltip'           => esc_html__( 'Hide the Google reCaptcha label from your site', 'gfgooglecaptchaaddon' ),
+						'name'              => 'google_recaptcha_badge_visibility',
+						'description' 		=> 'If you hide the badge, Googles T&Cs must be visible in the user flow. See the <a target="_blank" href="https://developers.google.com/recaptcha/docs/faq" title="This link opens the Google FAQs in a new window">FAQs</a> for more information.',
+						'tooltip'           => esc_html__( 'Hide the Google reCaptcha badge from your site', 'gfgooglecaptchaaddon' ),
 						'choices' => array(
 			                array(
-			                    'label'         => esc_html__( 'Hide label', 'gfgooglecaptchaaddon' ),
-			                    'name'          => 'hide',
-			                    'default_value' => 1,
-
+			                    'label'         => esc_html__( 'Hide', 'gfgooglecaptchaaddon' ),
+			                    'name'          => 'google_recaptcha_badge_visibility',
+			                    'default_value' => 0,
 			                ),
 						),
 					),
