@@ -22,6 +22,14 @@ A simple Gravity Forms plugin to enable invisible Google Captcha V3 on all forms
 3. Fill in all details (select reCAPTCHA v3) and press "Submit"
 4. Copy the site keys into the settings for this Add On
 
+## Logging reCaptcha Score
+
+In some situations you may want to keep a track of your submittions, and the scores that Google has allocated them. This may help if you are having an influx of spam.
+
+If this is the case, we have include a "reCaptcha Score" field that can be found in the Advanced Fields field section.
+
+Just add this to your form once, and it will be populated with the score.
+
 # Google reCaptcha Badge
 
 The Google reCaptcha badge is shown by default. This can be removed in the plugin settings, but Google require their terms and conditions to shown within the user flow.
