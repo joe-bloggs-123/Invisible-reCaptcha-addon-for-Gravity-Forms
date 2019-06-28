@@ -24,6 +24,13 @@ class Recaptcha_Score_GF_Field extends GF_Field {
 		return false;
 	}
 
+	public function get_form_editor_button() {
+	    return array(
+	        'group' => 'advanced_fields',
+	        'text'  => $this->get_form_editor_field_title(),
+	    );
+	}
+
 	function get_form_editor_field_settings() {
 		return array(
 			'prepopulate_field_setting',
