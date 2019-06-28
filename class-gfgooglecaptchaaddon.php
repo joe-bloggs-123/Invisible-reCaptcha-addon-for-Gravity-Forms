@@ -27,6 +27,14 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 		return self::$_instance;
 	}
 
+	public function pre_init() {
+	    parent::pre_init();
+
+	    if ( $this->is_gravityforms_supported() && class_exists( 'GF_Field' ) ) {
+	        require_once( 'fields/class-gf-recaptcha-score-field.php' );
+	    }
+	}
+
 	/**
 	 * Fire the GF hook to load Google holder
 	 */
@@ -81,13 +89,12 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 
 	    header('Content-type: application/json');
 
-	    if( $responseKeys["success"] ) {
-			$score = $responseKeys['score'];
-			echo json_encode(array('success' => 'true'));
-	    } else {
-			$score = $responseKeys['score'];
-			echo json_encode(array('success' => 'false'));
-	    }
+		$recaptchaSuccess = $responseKeys["success"] ? true : false;
+
+		echo json_encode(array(
+			'success' => $recaptchaSuccess,
+			'score' => $responseKeys['score'],
+		));
 
 		die;
 	}
@@ -189,6 +196,36 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	    return array_merge( parent::styles(), $styles );
 	}
 
+
+
+	/**
+	 * Configures the settings which should be rendered on the Form Settings > Simple Add-On tab.
+	 *
+	 * @return array
+	 */
+	public function form_settings_fields( $form ) {
+		return array(
+			array(
+				'title'  => esc_html__( 'Google reCaptcha Form Settings', 'gfgooglecaptchaaddon' ),
+				'fields' => array(
+					array(
+						'label'   => esc_html__( 'Add score to entry', 'gfgooglecaptchaaddon' ),
+						'type'    => 'checkbox',
+						'name'    => 'enabled',
+						'tooltip' => esc_html__( 'Add the Google reCaptcha score to form entries and add details to email details', 'gfgooglecaptchaaddon' ),
+						'choices' => array(
+							array(
+								'label' => esc_html__( 'Enabled', 'gfgooglecaptchaaddon' ),
+								'name'  => 'enabled',
+							),
+						),
+					),
+				),
+			),
+		);
+	}
+
+
 	// # ADMIN FUNCTIONS -----------------------------------------------------------------------------------------------
 
 	/**
@@ -196,8 +233,6 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	 *
 	 * @return array
 	 */
-
-
 
 	public function plugin_settings_fields() {
 		return array(

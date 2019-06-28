@@ -42,6 +42,14 @@ function tellServer(token, frm) {
         .post(gfGoogleCaptchaScriptFrontend_strings.ajaxurl, Qs.stringify(data))
         .then(function(response) {
             if (response.data.success) {
+                var recaptchaFields = document.querySelectorAll(
+                    '[data-type="recaptcha-score"]'
+                )
+                if (recaptchaFields) {
+                    forEach(recaptchaFields, function(index, field) {
+                        field.value = data.score
+                    })
+                }
                 frm.submit()
             } else {
                 console.log('Is a bot')
