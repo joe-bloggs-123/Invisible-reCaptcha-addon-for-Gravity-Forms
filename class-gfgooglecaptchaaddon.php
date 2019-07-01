@@ -118,7 +118,7 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	 */
 	public function scripts() {
 
-		$key = $this->get_plugin_setting( 'google_site_key');
+		$key = trim($this->get_plugin_setting( 'google_site_key'));
 
 		$scripts = array(
 			array(
@@ -156,8 +156,8 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 			array(
 				'handle'  => 'googleRecaptcha',
 				'src'     => 'https://www.google.com/recaptcha/api.js?render=' . $key,
-				'version' => $this->_version,
-				'deps'    => array( ),
+				'version' => null,
+				'deps'    => array(),
 				'enqueue' => array(
 	                array( $this, 'requires_script' )
 	            )
