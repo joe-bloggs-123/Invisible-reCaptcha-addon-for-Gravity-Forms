@@ -32,6 +32,6 @@ Just add this to your form once, and it will be populated with the score.
 
 # Google reCaptcha Badge
 
-The Google reCaptcha badge is shown by default. This can be removed in the plugin settings, but Google require their terms and conditions to shown within the user flow.
+The Google reCaptcha badge is shown by default. This can be removed in the plugin settings, but Google require their terms and conditions to be shown within the user flow.
 
 See their FAQs for more information: https://developers.google.com/recaptcha/docs/faq
