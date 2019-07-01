@@ -9,6 +9,7 @@ class Recaptcha_Score_GF_Field extends GF_Field {
 	/**
 	 * @var string $type The field type.
 	 */
+	public $type = 'recaptcha_score';
 
 	/**
 	 * Return the field title, for use in the form editor.
