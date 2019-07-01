@@ -42,13 +42,11 @@ function tellServer(token, frm) {
         .post(gfGoogleCaptchaScriptFrontend_strings.ajaxurl, Qs.stringify(data))
         .then(function(response) {
             if (response.data.success) {
-                var recaptchaFields = document.querySelectorAll(
+                var recaptchaFields = document.querySelector(
                     '[data-type="recaptcha-score"]'
                 )
                 if (recaptchaFields) {
-                    forEach(recaptchaFields, function(index, field) {
-                        field.value = data.score
-                    })
+                    recaptchaFields.value = response.data.score
                 }
                 frm.submit()
             } else {
