@@ -24,7 +24,7 @@ A simple Gravity Forms plugin to enable invisible Google Captcha V3 on all forms
 
 ## Logging reCaptcha Score
 
-In some situations you may want to keep a track of your submittions, and the scores that Google has allocated them. This may help if you are having an influx of spam.
+In some situations you may want to keep a track of your submissions, and the scores that Google has allocated them. This may help if you are having an influx of spam.
 
 If this is the case, we have include a "reCaptcha Score" field that can be found in the Advanced Fields field section.
 
