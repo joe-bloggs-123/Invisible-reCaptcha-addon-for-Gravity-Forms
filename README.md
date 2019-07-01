@@ -1,6 +1,6 @@
-# Gravity Forms Google Captcha v3 Addon
+# Gravity Forms Google reCaptcha v3 Addon
 
-A simple Gravity Forms plugin to enable invisible Google Captcha V3 on all forms.
+A simple Gravity Forms plugin to enable invisible Google reCaptcha V3 on all forms.
 
 ## Add Add On to Gravity Forms
 
@@ -12,7 +12,7 @@ A simple Gravity Forms plugin to enable invisible Google Captcha V3 on all forms
 6. Press "Install Now"
 7. Press "Activate Plugin"
 8. Navigate to Gravity Forms Settings
-9. In the left hand bar, press "Google Captcha V3"
+9. In the left hand bar, press "Google reCaptcha V3"
 10. Add the Google Captcha API keys
 
 ## Creating Google Captcha Keys
