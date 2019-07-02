@@ -197,35 +197,6 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	}
 
 
-
-	/**
-	 * Configures the settings which should be rendered on the Form Settings > Simple Add-On tab.
-	 *
-	 * @return array
-	 */
-	public function form_settings_fields( $form ) {
-		return array(
-			array(
-				'title'  => esc_html__( 'Google reCaptcha Form Settings', 'gfgooglecaptchaaddon' ),
-				'fields' => array(
-					array(
-						'label'   => esc_html__( 'Add score to entry', 'gfgooglecaptchaaddon' ),
-						'type'    => 'checkbox',
-						'name'    => 'enabled',
-						'tooltip' => esc_html__( 'Add the Google reCaptcha score to form entries and add details to email details', 'gfgooglecaptchaaddon' ),
-						'choices' => array(
-							array(
-								'label' => esc_html__( 'Enabled', 'gfgooglecaptchaaddon' ),
-								'name'  => 'enabled',
-							),
-						),
-					),
-				),
-			),
-		);
-	}
-
-
 	// # ADMIN FUNCTIONS -----------------------------------------------------------------------------------------------
 
 	/**
