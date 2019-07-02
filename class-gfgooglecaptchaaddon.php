@@ -63,7 +63,7 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 		// Check nonce and referrer
 		check_ajax_referer( 'google-captcha', 'security' );
 
-		$token = isset( $_POST['token'] ) ? filter_var( trim( $_POST['token'] ), FILTER_SANITIZE_STRING) : false;
+		$token = isset( $_POST['token'] ) ? sanitize_text_field( $_POST['token'] ) : false;
 
 		if(!$token){ die; }
 
@@ -76,27 +76,36 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 		);
 
 		$options = array(
-	      'http' => array(
-	        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-	        'method'  => 'POST',
-	        'content' => http_build_query($data)
-	      )
+			'method'  => 'POST',
+	        'header'  => array(
+				'content-type' => "Content-type: application/x-www-form-urlencoded\r\n"
+			),
+	        'body' => http_build_query($data)
 	    );
 
-	    $context  = stream_context_create($options);
-	    $response = file_get_contents($url, false, $context);
-	    $responseKeys = json_decode($response,true);
+		$response = wp_remote_post($url, $options);
 
-	    header('Content-type: application/json');
+		if ( is_wp_error( $response ) ) {
+			// There was an error
+			die;
+		} else {
 
-		$recaptchaSuccess = $responseKeys["success"] ? true : false;
+		    $responseKeys = json_decode($response,true);
 
-		echo json_encode(array(
-			'success' => $recaptchaSuccess,
-			'score' => $responseKeys['score'],
-		));
+		    header('Content-type: application/json');
 
-		die;
+			// Clean value to true/false
+			$recaptchaSuccess = $responseKeys["success"] ? true : false;
+
+			echo json_encode(array(
+				'success' => $recaptchaSuccess,
+				'score' => sanitize_text_field($responseKeys['score']),
+			));
+
+			die;
+		}
+
+
 	}
 
 	// If user has checked "Hide label" checkbox, add
