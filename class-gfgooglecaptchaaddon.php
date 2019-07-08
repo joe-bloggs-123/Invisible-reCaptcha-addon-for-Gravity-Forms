@@ -90,21 +90,20 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 			die;
 		} else {
 
-		    $responseKeys = json_decode($response,true);
+			$cleanedResponse = json_decode(stripslashes($response['body']));
 
 		    header('Content-type: application/json');
 
 			// Clean value to true/false
-			$recaptchaSuccess = $responseKeys["success"] ? true : false;
+			$recaptchaSuccess = $cleanedResponse->success ? true : false;
 
 			echo json_encode(array(
-				'success' => $recaptchaSuccess,
-				'score' => sanitize_text_field($responseKeys['score']),
+				'success' => $cleanedResponse->success,
+				'score' => sanitize_text_field($cleanedResponse->score),
 			));
 
 			die;
 		}
-
 
 	}
 
