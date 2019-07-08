@@ -2,7 +2,7 @@
 
 GFForms::include_addon_framework();
 
-class GFGoogleCaptchaAddOn extends GFAddOn {
+class gfgooglecaptchaaddon extends GFAddOn {
 
 	protected $_version = GF_GOOGLE_CAPTCHA_ADDON_VERSION;
 	protected $_min_gravityforms_version = '1.9';
@@ -17,11 +17,11 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	/**
 	 * Get an instance of this class.
 	 *
-	 * @return GFGoogleCaptchaAddOn
+	 * @return gfgooglecaptchaaddon
 	 */
 	public static function get_instance() {
 		if ( self::$_instance == null ) {
-			self::$_instance = new GFGoogleCaptchaAddOn();
+			self::$_instance = new gfgooglecaptchaaddon();
 		}
 
 		return self::$_instance;
@@ -216,33 +216,33 @@ class GFGoogleCaptchaAddOn extends GFAddOn {
 	public function plugin_settings_fields() {
 		return array(
 			array(
-				'title'  => esc_html__( 'Google Recaptcha Keys', 'gfgooglecaptchaaddon' ),
+				'title'  => esc_html__( 'Google Recaptcha Keys', 'gf-google-recaptcha-3' ),
 				'fields' => array(
 					array(
-						'label'             => esc_html__( 'Site Key', 'gfgooglecaptchaaddon' ),
+						'label'             => esc_html__( 'Site Key', 'gf-google-recaptcha-3' ),
 						'type'              => 'text',
 						'name'              => 'google_site_key',
-						'tooltip'           => esc_html__( 'This is the key for the client side. Users can see this.', 'gfgooglecaptchaaddon' ),
+						'tooltip'           => esc_html__( 'This is the key for the client side. Users can see this.', 'gf-google-recaptcha-3' ),
 						'class'             => 'medium',
 						'feedback_callback' => array( $this, 'is_valid_setting' ),
 					),
 					array(
-						'label'             => esc_html__( 'Site Secret Key', 'gfgooglecaptchaaddon' ),
+						'label'             => esc_html__( 'Site Secret Key', 'gf-google-recaptcha-3' ),
 						'type'              => 'text',
 						'name'              => 'google_site_secret_key',
-						'tooltip'           => esc_html__( 'Keep secret! This is the key for the server site.', 'gfgooglecaptchaaddon' ),
+						'tooltip'           => esc_html__( 'Keep secret! This is the key for the server site.', 'gf-google-recaptcha-3' ),
 						'class'             => 'medium',
 						'feedback_callback' => array( $this, 'is_valid_setting' ),
 					),
 					array(
-						'label'             => esc_html__( 'reCaptcha Badge', 'gfgooglecaptchaaddon' ),
+						'label'             => esc_html__( 'reCaptcha Badge', 'gf-google-recaptcha-3' ),
 						'type'              => 'checkbox',
 						'name'              => 'google_recaptcha_badge_visibility',
 						'description' 		=> 'If you hide the badge, Googles T&Cs must be visible in the user flow. See the <a target="_blank" href="https://developers.google.com/recaptcha/docs/faq" title="This link opens the Google FAQs in a new window">FAQs</a> for more information.',
-						'tooltip'           => esc_html__( 'Hide the Google reCaptcha badge from your site', 'gfgooglecaptchaaddon' ),
+						'tooltip'           => esc_html__( 'Hide the Google reCaptcha badge from your site', 'gf-google-recaptcha-3' ),
 						'choices' => array(
 			                array(
-			                    'label'         => esc_html__( 'Hide', 'gfgooglecaptchaaddon' ),
+			                    'label'         => esc_html__( 'Hide', 'gf-google-recaptcha-3' ),
 			                    'name'          => 'google_recaptcha_badge_visibility',
 			                    'default_value' => 0,
 			                ),

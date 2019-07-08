@@ -17,7 +17,7 @@ class Recaptcha_Score_GF_Field extends GF_Field {
 	 * @return string
 	 */
 	public function get_form_editor_field_title() {
-		return esc_attr__( 'reCaptcha Score', 'gfgooglecaptchaaddon' );
+		return esc_attr__( 'reCaptcha Score', 'gf-google-recaptcha-3' );
 	}
 
     public function is_conditional_logic_supported(){
