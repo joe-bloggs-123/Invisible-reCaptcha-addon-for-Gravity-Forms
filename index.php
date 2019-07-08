@@ -22,11 +22,11 @@ class GF_Google_Captcha_AddOn_Bootstrap {
 
         require_once( 'class-gfgooglecaptchaaddon.php' );
 
-        GFAddOn::register( 'GFGoogleCaptchaAddOn' );
+        GFAddOn::register( 'gfgooglecaptchaaddon' );
     }
 
 }
 
 function gf_google_captcha_addon() {
-    return GFGoogleCaptchaAddOn::get_instance();
+    return gfgooglecaptchaaddon::get_instance();
 }
