@@ -9,7 +9,7 @@ class gfgooglecaptchaaddon extends GFAddOn {
 	protected $_slug = 'gravityformsgooglecaptcha';
 	protected $_path = 'gravityformsgooglecaptcha/index.php';
 	protected $_full_path = __FILE__;
-	protected $_title = 'Invisible reCaptcha addon for Gravity Form';
+	protected $_title = 'Invisible reCaptcha addon for Gravity Forms';
 	protected $_short_title = 'Invisible reCaptcha';
 
 	private static $_instance = null;
