@@ -1,4 +1,4 @@
-# Gravity Forms Google reCaptcha v3 Addon
+# Invisible Google reCaptcha addon for Gravity Forms
 
 A simple Gravity Forms plugin to enable invisible Google reCaptcha V3 on all forms.
 

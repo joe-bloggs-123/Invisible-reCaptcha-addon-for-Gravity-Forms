@@ -1,7 +1,7 @@
-=== Gravity Forms Google reCaptcha V3 Addon ===
+=== Invisible reCaptcha addon for Gravity Forms ===
 
 Contributors:      robertmarshall
-Plugin Name:       Gravity Forms Google reCaptcha V3 Addon
+Plugin Name:       Invisible reCaptcha addon for Gravity Forms
 Plugin URI:        https://github.com/fox-agency/gravityforms-google-captcha-v3-addon
 Tags:              Gravity Forms, Addon, Forms, Google reCaptcha, reCaptcha 3, Invisible reCaptcha
 Author URI:        http://fox.agency
@@ -22,8 +22,8 @@ A simple Gravity Forms plugin to enable invisible Google Captcha V3 on all forms
 === From within WordPress ===
 
 1. Visit 'Plugins > Add New'
-1. Search for 'Gravity Forms Google reCaptcha V3 Addon'
-1. Activate Gravity Forms Google reCaptcha V3 Addon within your Plugins page.
+1. Search for 'Invisible reCaptcha addon for Gravity Form'
+1. Activate Invisible reCaptcha addon for Gravity Form within your Plugins page.
 1. Go to "after activation" below.
 
 === Adding Google reCaptcha Keys ===

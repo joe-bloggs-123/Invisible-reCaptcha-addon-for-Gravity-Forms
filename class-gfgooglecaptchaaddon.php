@@ -5,12 +5,12 @@ GFForms::include_addon_framework();
 class gfgooglecaptchaaddon extends GFAddOn {
 
 	protected $_version = GF_GOOGLE_CAPTCHA_ADDON_VERSION;
-	protected $_min_gravityforms_version = '1.9';
+	protected $_min_gravityforms_version = '1.10';
 	protected $_slug = 'gravityformsgooglecaptcha';
 	protected $_path = 'gravityformsgooglecaptcha/index.php';
 	protected $_full_path = __FILE__;
-	protected $_title = 'Gravity Forms Google Captcha V3 Add-On';
-	protected $_short_title = 'Google Captcha V3';
+	protected $_title = 'Invisible reCaptcha addon for Gravity Form';
+	protected $_short_title = 'Invisible reCaptcha';
 
 	private static $_instance = null;
 
@@ -216,7 +216,7 @@ class gfgooglecaptchaaddon extends GFAddOn {
 	public function plugin_settings_fields() {
 		return array(
 			array(
-				'title'  => esc_html__( 'Google Recaptcha Keys', 'gf-google-recaptcha-3' ),
+				'title'  => esc_html__( 'Google reCaptcha Keys', 'gf-google-recaptcha-3' ),
 				'fields' => array(
 					array(
 						'label'             => esc_html__( 'Site Key', 'gf-google-recaptcha-3' ),

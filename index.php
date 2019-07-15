@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Gravity Forms Google Captcha V3
+Plugin Name: Invisible reCaptcha addon for Gravity Form
 Plugin URI: https://github.com/fox-agency/gravityforms-google-captcha-v3-addon
-Description: A simple Gravity Forms plugin to enable invisible Google Captcha V3 on all forms.
-Version: 1.0.9
+Description: A simple Gravity Forms plugin to enable invisible Google reCaptcha V3 on all forms.
+Version: 1.0.10
 Author: Fox Agency
 Author URI: fox.agency
 */
