@@ -9,8 +9,8 @@ Author:            Fox Agency
 Requires at least: 5.0
 Tested up to:      5.2.2
 Requires PHP:      7.0
-Stable tag:        1.1.0
-Version:           1.1.0
+Stable tag:        1.1.1
+Version:           1.1.1
 License: GPLv3
 
 == Description ==
