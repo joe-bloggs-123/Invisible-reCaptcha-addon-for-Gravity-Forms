@@ -20,8 +20,9 @@ grecaptcha.ready(function() {
             frm.addEventListener('submit', function(evt) {
                 evt.preventDefault()
                 // Execute and get token
+                var action = form.id.replace(/[^a-zA-Z0-9_]/g, '_');
                 grecaptcha
-                    .execute(holderId, { action: form.id })
+                    .execute(holderId, { action: action })
                     .then(function(token) {
                         // Take token and pass to server
                         tellServer(token, frm)
